@@ -86,6 +86,50 @@ namespace TestValidation
                     Assert.AreEqual(expected, ex.message);
                 }
             }
+
+        /// <summary>
+        /// UC2-Returns the totlfare for multiple rides
+        /// </summary>
+        [TestMethod]
+        public void Return_Multiple_Rides_TotalFare()
+        {
+            InvoiceGenerator invoice = new InvoiceGenerator(TypesOfRide.PREMIUM_RIDE);
+            RideDetails[] rides = { new RideDetails(2.0, 5), new RideDetails(0.1, 1) };
+
+            InvoiceGeneratorSummary summary = new InvoiceGeneratorSummary(2, 55.0);
+            InvoiceGeneratorSummary expected = invoice.CalculateFare(rides);
+            Assert.AreEqual(summary.totalFare, expected.totalFare);
         }
+
+        /// <summary>
+        /// UC3-returns the number of rides
+        /// </summary>
+        [TestMethod]
+        public void Return_Multiple_Rides_NumofRides()
+        {
+            InvoiceGenerator invoice = new InvoiceGenerator(TypesOfRide.PREMIUM_RIDE);
+            RideDetails[] rides = { new RideDetails(2.0, 5), new RideDetails(0.1, 1) };
+
+            InvoiceGeneratorSummary summary = new InvoiceGeneratorSummary(2, 55.0);
+            InvoiceGeneratorSummary expected = invoice.CalculateFare(rides);
+            Assert.AreEqual(summary.numberOfRides, expected.numberOfRides);
+        }
+
+        /// <summary>
+        /// UC3-Returns the average ride
+        /// </summary>
+        [TestMethod]
+        public void Return_Multiple_Rides_AverageFare()
+        {
+            InvoiceGenerator invoice = new InvoiceGenerator(TypesOfRide.PREMIUM_RIDE);
+            RideDetails[] rides = { new RideDetails(2.0, 5), new RideDetails(0.1, 1) };
+
+            InvoiceGeneratorSummary summary = new InvoiceGeneratorSummary(2, 55.0);
+            InvoiceGeneratorSummary expected = invoice.CalculateFare(rides);
+            Assert.AreEqual(summary.avgFare, expected.avgFare);
+        }
+
+
+    }
     }
 

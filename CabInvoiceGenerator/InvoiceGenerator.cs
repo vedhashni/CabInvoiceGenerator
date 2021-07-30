@@ -63,5 +63,27 @@ namespace CabInvoiceGenerator
             }
             return Math.Max(totalFare, MINIMUM_FARE);
         }
+
+        //Method to calculate the totalfare for multiple rides 
+        public InvoiceGeneratorSummary CalculateFare(RideDetails[] rides)
+        {
+            double totalFare = 0;
+            try
+            {
+                if (rides == null)
+                {
+                    throw new CustomException(CustomException.ExceptionType.NULL_RIDES, "No rides found");
+                }
+                foreach (RideDetails ride in rides)
+                {
+                    totalFare += this.CalculateFare(ride.distance, ride.time);
+                }
+            }
+            catch (CustomException ex)
+            {
+                Console.WriteLine(ex.message);
+            }
+            return new InvoiceGeneratorSummary(rides.Length, totalFare);
+        }
     }
 }
