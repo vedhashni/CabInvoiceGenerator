@@ -129,7 +129,23 @@ namespace TestValidation
             Assert.AreEqual(summary.avgFare, expected.avgFare);
         }
 
+        /// <summary>
+        /// UC4-Adding the data in the list correponding userid and rides
+        /// </summary>
+        [TestMethod]
+        public void Given_UserId_Return_Fare()
+        {
+            RideDetails[] rides = { new RideDetails(2.0, 5), new RideDetails(0.1, 1) };
+            RideRepository rideRepository = new RideRepository();
+            rideRepository.AddRide(1, rides);
+            rideRepository.AddRide(2, rides);
+            var rideArray = rideRepository.GetRides(1);
+            InvoiceGenerator invoice = new InvoiceGenerator(TypesOfRide.NORMAL_RIDE);
 
+            InvoiceGeneratorSummary summary = new InvoiceGeneratorSummary(2, 30.0);
+            InvoiceGeneratorSummary expected = invoice.CalculateFare(rideArray);
+            Assert.AreEqual(summary.totalFare, expected.totalFare);
+        }
     }
     }
 
